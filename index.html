@@ -26,13 +26,23 @@
   <div class="preloader-inner">
     <div class="preloader-dragon" aria-hidden="true">
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M40 8 C28 8 18 18 18 30 C18 42 26 50 36 54 L36 62 C36 64 38 66 40 66 C42 66 44 64 44 62 L44 54 C54 50 62 42 62 30 C62 18 52 8 40 8Z" fill="#c9920a" opacity="0.9"/>
-        <path d="M32 30 C32 26 36 22 40 22 C44 22 48 26 48 30" stroke="#f5c84a" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="34" cy="28" r="3" fill="#f5c84a"/>
-        <circle cx="46" cy="28" r="3" fill="#f5c84a"/>
-        <path d="M20 20 L12 14 L18 22" stroke="#c9920a" stroke-width="2" stroke-linecap="round"/>
-        <path d="M60 20 L68 14 L62 22" stroke="#c9920a" stroke-width="2" stroke-linecap="round"/>
-        <path d="M36 66 L28 74 M44 66 L52 74" stroke="#c9920a" stroke-width="2" stroke-linecap="round"/>
+        <!-- Body -->
+        <path d="M40 8 C28 8 18 18 18 30 C18 42 26 50 36 54 L36 62 C36 64 38 66 40 66 C42 66 44 64 44 62 L44 54 C54 50 62 42 62 30 C62 18 52 8 40 8Z" fill="#0A1A2F"/>
+        <!-- Wing left -->
+        <path d="M20 22 L6 12 L16 26 Z" fill="#0A1A2F" opacity="0.8"/>
+        <!-- Wing right -->
+        <path d="M60 22 L74 12 L64 26 Z" fill="#0A1A2F" opacity="0.8"/>
+        <!-- Chest scale -->
+        <path d="M32 30 C32 26 36 22 40 22 C44 22 48 26 48 30" stroke="#FFC107" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Eyes -->
+        <circle cx="34" cy="28" r="3.5" fill="#FFC107"/>
+        <circle cx="46" cy="28" r="3.5" fill="#FFC107"/>
+        <circle cx="35" cy="28" r="1.5" fill="#0A1A2F"/>
+        <circle cx="47" cy="28" r="1.5" fill="#0A1A2F"/>
+        <!-- Legs -->
+        <path d="M36 62 L28 74 M44 62 L52 74" stroke="#FFC107" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Gold trim outline -->
+        <path d="M40 8 C28 8 18 18 18 30 C18 42 26 50 36 54 L36 62 C36 64 38 66 40 66 C42 66 44 64 44 62 L44 54 C54 50 62 42 62 30 C62 18 52 8 40 8Z" stroke="#FFC107" stroke-width="1.5" fill="none" opacity="0.5"/>
       </svg>
     </div>
     <div class="preloader-wordmark">
@@ -103,12 +113,16 @@
     <a class="brand" href="#home" aria-label="Felix Petroleum home">
       <div class="brand-dragon" aria-hidden="true">
         <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 4 C14 4 9 9 9 15 C9 21 13 25 18 27 L18 31 C18 32 19 33 20 33 C21 33 22 32 22 31 L22 27 C27 25 31 21 31 15 C31 9 26 4 20 4Z" fill="#c9920a"/>
-          <path d="M16 15 C16 13 18 11 20 11 C22 11 24 13 24 15" stroke="#f5c84a" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="17" cy="14" r="1.5" fill="#f5c84a"/>
-          <circle cx="23" cy="14" r="1.5" fill="#f5c84a"/>
-          <path d="M10 10 L6 7 L9 11" stroke="#c9920a" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M30 10 L34 7 L31 11" stroke="#c9920a" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M20 4 C14 4 9 9 9 15 C9 21 13 25 18 27 L18 31 C18 32 19 33 20 33 C21 33 22 32 22 31 L22 27 C27 25 31 21 31 15 C31 9 26 4 20 4Z" fill="#0A1A2F"/>
+          <path d="M20 4 C14 4 9 9 9 15 C9 21 13 25 18 27 L18 31 C18 32 19 33 20 33 C21 33 22 32 22 31 L22 27 C27 25 31 21 31 15 C31 9 26 4 20 4Z" stroke="#FFC107" stroke-width="1" fill="none" opacity="0.6"/>
+          <path d="M10 10 L6 7 L9 11" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M30 10 L34 7 L31 11" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M16 15 C16 13 18 11 20 11 C22 11 24 13 24 15" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="17" cy="14" r="1.8" fill="#FFC107"/>
+          <circle cx="23" cy="14" r="1.8" fill="#FFC107"/>
+          <circle cx="17.6" cy="14" r="0.8" fill="#0A1A2F"/>
+          <circle cx="23.6" cy="14" r="0.8" fill="#0A1A2F"/>
+          <path d="M18 31 L14 37 M22 31 L26 37" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="brand-text">
@@ -176,6 +190,11 @@
 
   <!-- Hero content (cycles with quotes) -->
   <div class="container hero-content">
+    <div class="hero-excellence-badge">
+      <svg class="heb-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6L12 2z" fill="#FFC107"/></svg>
+      <span>5 Years of Global Excellence</span>
+    </div>
+    <p class="hero-tagline">We have served and will keep serving.</p>
     <div class="hero-badge">
       <span class="badge-dot"></span>
       <span id="hero-badge-text">CATERING TO YOUR ENERGY NEEDS</span>
@@ -293,8 +312,21 @@
       </div>
     </div>
     <div class="about-text">
+      <!-- Dragon watermark sits behind the text -->
+      <div class="about-watermark" aria-hidden="true">
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 20 C72 20 45 45 45 75 C45 105 65 125 90 135 L90 155 C90 160 94 165 100 165 C106 165 110 160 110 155 L110 135 C135 125 155 105 155 75 C155 45 128 20 100 20Z" fill="#0A1A2F" opacity="0.07"/>
+          <path d="M80 75 C80 65 90 55 100 55 C110 55 120 65 120 75" stroke="#FFC107" stroke-width="3" stroke-linecap="round" opacity="0.08"/>
+          <circle cx="85" cy="70" r="7" fill="#FFC107" opacity="0.08"/>
+          <circle cx="115" cy="70" r="7" fill="#FFC107" opacity="0.08"/>
+          <path d="M50 50 L30 35 L45 55" stroke="#0A1A2F" stroke-width="3" stroke-linecap="round" opacity="0.07"/>
+          <path d="M150 50 L170 35 L155 55" stroke="#0A1A2F" stroke-width="3" stroke-linecap="round" opacity="0.07"/>
+          <path d="M90 165 L70 185 M110 165 L130 185" stroke="#0A1A2F" stroke-width="3" stroke-linecap="round" opacity="0.07"/>
+        </svg>
+      </div>
       <p class="eyebrow">01 — WHO WE ARE</p>
       <h2>Energy supply that keeps <span>business moving.</span></h2>
+      <p class="about-downstream">We are a <strong>downstream oil &amp; gas company</strong> in Nigeria, here to cater to your energy needs. We are in the oil and gas chain — connecting supply to demand, and keeping businesses powered across the country.</p>
       <p class="about-lead">Felix Petroleum is an emerging oil and gas trading and distribution company based in Rivers State, Nigeria, built around one promise: dependable products, competitive pricing and service customers can plan around.</p>
       <p class="about-body">Our model connects procurement, storage and distribution with efficient logistics — helping businesses across the Niger Delta meet operational energy needs without costly interruptions. We are growing to become the leading independent petroleum distributor in southern Nigeria.</p>
       <div class="about-pills">
@@ -406,6 +438,102 @@
           <a href="#contact" class="card-link">Enquire ↗</a>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PETROLEUM CARD + ORDER ONLINE
+══════════════════════════════════════ -->
+<section class="section petro-card-section" id="petroleum-card">
+  <div class="container" data-reveal>
+    <div class="section-head">
+      <div class="section-head-left">
+        <p class="eyebrow">02b — PETROLEUM CARD</p>
+        <h2>Your <span>Felix Fuel Card</span></h2>
+      </div>
+      <p class="section-head-right">Manage fuel spend, track usage and order petroleum products on demand — all through your Felix Petroleum account.</p>
+    </div>
+
+    <div class="petro-card-grid">
+      <!-- Visual Card -->
+      <div class="petro-card-visual">
+        <div class="petro-card">
+          <div class="petro-card-top">
+            <div class="petro-card-logo">
+              <svg viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14 2 C8 2 3 7 3 13 C3 19 7 23 12 25 L12 27 C12 27.6 12.4 28 13 28 C13.6 28 14 27.6 14 27 L14 25 C19 23 23 19 23 13 C23 7 20 2 14 2Z" fill="#FFC107"/>
+                <circle cx="11" cy="12" r="1.8" fill="#0A1A2F"/>
+                <circle cx="17" cy="12" r="1.8" fill="#0A1A2F"/>
+                <path d="M10 17 C10 15 12 13 14 13 C16 13 18 15 18 17" stroke="#0A1A2F" stroke-width="1.5" stroke-linecap="round"/>
+                <text x="28" y="18" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="11" fill="white" letter-spacing="2">FELIX</text>
+              </svg>
+            </div>
+            <span class="petro-card-type">PETROLEUM CARD</span>
+          </div>
+          <div class="petro-card-chip">
+            <div class="chip-lines">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="petro-card-number">**** **** **** 2026</div>
+          <div class="petro-card-footer">
+            <div>
+              <small>CARD HOLDER</small>
+              <span>FELIX PETROLEUM</span>
+            </div>
+            <div>
+              <small>VALID THRU</small>
+              <span>12/29</span>
+            </div>
+          </div>
+        </div>
+        <!-- Glow behind card -->
+        <div class="petro-card-glow" aria-hidden="true"></div>
+      </div>
+
+      <!-- Card Benefits -->
+      <div class="petro-card-benefits">
+        <h3>What the Petroleum Card gives you</h3>
+        <ul class="pcb-list">
+          <li>
+            <span class="pcb-icon">⛽</span>
+            <div>
+              <strong>Order Fuel Anytime</strong>
+              <p>Place bulk diesel, PMS or LPG orders 24/7 directly through your card account.</p>
+            </div>
+          </li>
+          <li>
+            <span class="pcb-icon">📊</span>
+            <div>
+              <strong>Track Spend &amp; Usage</strong>
+              <p>Real-time dashboard showing consumption, invoices and delivery history.</p>
+            </div>
+          </li>
+          <li>
+            <span class="pcb-icon">🔒</span>
+            <div>
+              <strong>Secure &amp; Verified</strong>
+              <p>DPR-compliant transactions with digital receipts and full audit trail.</p>
+            </div>
+          </li>
+          <li>
+            <span class="pcb-icon">💳</span>
+            <div>
+              <strong>Flexible Credit Terms</strong>
+              <p>Negotiate credit limits and payment terms suited to your business cycle.</p>
+            </div>
+          </li>
+        </ul>
+        <div class="pcb-actions">
+          <a href="https://wa.me/2349033758973?text=I%20want%20to%20ORDER%20FUEL%20ONLINE%20via%20Felix%20Petroleum%20Petroleum%20Card"
+             target="_blank" rel="noopener"
+             class="btn btn-gold btn-order">
+            <span>⛽</span> Order Fuel / Diesel Online
+          </a>
+          <a href="#contact" class="btn btn-outline-gold">Apply for Card ↗</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -793,7 +921,7 @@
     <div class="footer-brand-col">
       <a class="brand footer-brand" href="#home" aria-label="Felix Petroleum home">
         <div class="brand-dragon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" fill="none"><path d="M20 4 C14 4 9 9 9 15 C9 21 13 25 18 27 L18 31 C18 32 19 33 20 33 C21 33 22 32 22 31 L22 27 C27 25 31 21 31 15 C31 9 26 4 20 4Z" fill="#c9920a"/><circle cx="17" cy="14" r="1.5" fill="#f5c84a"/><circle cx="23" cy="14" r="1.5" fill="#f5c84a"/></svg>
+          <svg viewBox="0 0 40 40" fill="none"><path d="M20 4 C14 4 9 9 9 15 C9 21 13 25 18 27 L18 31 C18 32 19 33 20 33 C21 33 22 32 22 31 L22 27 C27 25 31 21 31 15 C31 9 26 4 20 4Z" fill="#0A1A2F"/><path d="M20 4 C14 4 9 9 9 15 C9 21 13 25 18 27 L18 31 C18 32 19 33 20 33 C21 33 22 32 22 31 L22 27 C27 25 31 21 31 15 C31 9 26 4 20 4Z" stroke="#FFC107" stroke-width="1" fill="none" opacity="0.6"/><circle cx="17" cy="14" r="1.8" fill="#FFC107"/><circle cx="23" cy="14" r="1.8" fill="#FFC107"/><path d="M10 10 L6 7 L9 11" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/><path d="M30 10 L34 7 L31 11" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/><path d="M18 31 L14 37 M22 31 L26 37" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/></svg>
         </div>
         <div class="brand-text"><strong>FELIX</strong><small>PETROLEUM</small></div>
       </a>

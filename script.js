@@ -457,3 +457,73 @@ function handleSubmit(event) {
   return false;
 }
 window.handleSubmit = handleSubmit;
+
+/* ══════════════════════════════════════════════
+   FELIX BRANDING INJECTIONS — v4
+   Truck matte-black overlay + helmet logo swap
+══════════════════════════════════════════════ */
+
+(function brandingInjections() {
+  /* Dragon SVG string reused in overlays */
+  const dragonSVG = `<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 4 C14 4 9 9 9 15 C9 21 13 25 18 27 L18 31 C18 32 19 33 20 33 C21 33 22 32 22 31 L22 27 C27 25 31 21 31 15 C31 9 26 4 20 4Z" fill="#0A1A2F"/>
+    <path d="M20 4 C14 4 9 9 9 15 C9 21 13 25 18 27 L18 31 C18 32 19 33 20 33 C21 33 22 32 22 31 L22 27 C27 25 31 21 31 15 C31 9 26 4 20 4Z" stroke="#FFC107" stroke-width="1" fill="none" opacity="0.7"/>
+    <circle cx="17" cy="14" r="1.8" fill="#FFC107"/>
+    <circle cx="23" cy="14" r="1.8" fill="#FFC107"/>
+    <path d="M10 10 L6 7 L9 11" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M30 10 L34 7 L31 11" stroke="#FFC107" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>`;
+
+  /* 1. Add FELIX brand overlay to all truck images */
+  const truckKeywords = ['truck-black', 'truck-fleet', 'truck', 'fleet', 'tanker'];
+  document.querySelectorAll('img').forEach(img => {
+    const src = (img.getAttribute('src') || '').toLowerCase();
+    const alt = (img.getAttribute('alt') || '').toLowerCase();
+    const isTruck = truckKeywords.some(k => src.includes(k) || alt.includes(k));
+    if (!isTruck) return;
+
+    /* Wrap in position:relative container if not already */
+    const parent = img.parentElement;
+    if (!parent) return;
+    if (getComputedStyle(parent).position === 'static') {
+      parent.style.position = 'relative';
+    }
+
+    /* Inject overlay badge */
+    if (!parent.querySelector('.truck-logo-overlay')) {
+      const badge = document.createElement('div');
+      badge.className = 'truck-logo-overlay';
+      badge.style.display = 'flex';
+      badge.innerHTML = dragonSVG + `<span>FELIX</span>`;
+      parent.appendChild(badge);
+    }
+  });
+
+  /* 2. Wrap the helmet/office image and inject FELIX badge */
+  document.querySelectorAll('img').forEach(img => {
+    const src = (img.getAttribute('src') || '').toLowerCase();
+    const alt = (img.getAttribute('alt') || '').toLowerCase();
+    const isHelmet = src.includes('felix-pic-2') ||
+                     alt.includes('helmet') ||
+                     alt.includes('office') ||
+                     alt.includes('command') ||
+                     alt.includes('operations hub');
+    if (!isHelmet) return;
+
+    /* Wrap if not already wrapped */
+    if (!img.parentElement.classList.contains('helmet-img-wrap')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'helmet-img-wrap';
+      img.parentNode.insertBefore(wrap, img);
+      wrap.appendChild(img);
+    }
+
+    const wrap = img.parentElement;
+    if (!wrap.querySelector('.helmet-logo-badge')) {
+      const badge = document.createElement('div');
+      badge.className = 'helmet-logo-badge';
+      badge.innerHTML = dragonSVG + `<span>FELIX</span>`;
+      wrap.appendChild(badge);
+    }
+  });
+})();
