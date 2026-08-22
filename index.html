@@ -526,10 +526,9 @@
           <!-- ROW 3: Card number -->
           <div class="fgc-number">5243 &nbsp; 8912 &nbsp; 0045 &nbsp; 6789</div>
 
-          <!-- ROW 4: Motto (the "Catering to your energy needs" text) -->
+          <!-- ROW 4: Motto -->
           <div class="fgc-motto-row">
-            <span class="fgc-motto-main">Catering to</span>
-            <span class="fgc-motto-vert">your energy needs.</span>
+            <span class="fgc-motto-main">Catering to your energy needs.</span>
           </div>
 
           <!-- ROW 5: Holder / Valid / CVV -->
@@ -1260,117 +1259,150 @@
 
 <script src="script.js"></script>
 
-<!-- ══════════════════════════════════════
-     AI CHAT MINIMIZE — DEFINITIVE FIX
-══════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════
+     AI CHAT CLOSE — FINAL FIX v8
+     Single source of truth. No conflicts.
+═══════════════════════════════════════ -->
 <style>
-/* Minimized state: collapses to toggle button only */
-.ai-chat-widget.minimized .ai-chat-box {
-  display: none !important;
-  visibility: hidden !important;
+/* ── Minimized: widget collapses to 60px circle ── */
+.ai-chat-widget.minimized {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  cursor: pointer;
 }
-/* Smooth open animation */
+.ai-chat-widget.minimized .ai-chat-box,
+.ai-chat-widget.minimized .ai-label,
+.ai-chat-widget.minimized .ai-pulse { display: none !important; }
+.ai-chat-widget.minimized .ai-chat-toggle {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  justify-content: center !important;
+  background: #0A1A2F !important;
+  border: 2px solid #FFC107 !important;
+}
+.ai-chat-widget.minimized .ai-icon { font-size: 26px !important; }
+
+/* ── Chat box open animation ── */
 .ai-chat-box:not([hidden]) {
-  animation: ai-box-open .25s cubic-bezier(.22,1,.36,1);
+  animation: ai-pop-in .25s cubic-bezier(.22,1,.36,1);
 }
-@keyframes ai-box-open {
-  from { opacity: 0; transform: translateY(12px) scale(.97); }
-  to   { opacity: 1; transform: translateY(0)    scale(1);   }
+@keyframes ai-pop-in {
+  from { opacity:0; transform:translateY(14px) scale(.96); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
 }
-/* Close button — navy/gold, always on top, never blocked */
+
+/* ── Close button styling ── */
 #ai-close {
-  position: relative;
-  z-index: 9999 !important;
-  pointer-events: all !important;
-  cursor: pointer !important;
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255,193,7,.12);
-  border: 1.5px solid rgba(255,193,7,.35);
-  color: #FFC107;
-  font-size: 14px;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px;
+  border-radius: 50% !important;
+  background: rgba(255,193,7,.12) !important;
+  border: 1.5px solid rgba(255,193,7,.4) !important;
+  color: #FFC107 !important;
+  font-size: 14px !important;
   font-weight: 700;
-  display: grid;
-  place-items: center;
-  transition: background .2s, color .2s;
+  display: grid !important;
+  place-items: center !important;
+  cursor: pointer !important;
+  transition: background .18s, color .18s;
+  position: relative;
+  z-index: 99;
+  pointer-events: all !important;
+  /* Override any inherited pointer-events:none */
+  visibility: visible !important;
+  opacity: 1 !important;
 }
-#ai-close:hover { background: #FFC107; color: #0A1A2F; border-color: #FFC107; }
+#ai-close:hover {
+  background: #FFC107 !important;
+  color: #0A1A2F !important;
+  border-color: #FFC107 !important;
+}
 </style>
 
 <script>
-// ══════════════════════════════════════
-// AI CHAT MINIMIZE — DEFINITIVE FIX v7
-// Works with existing script.js listeners
-// ══════════════════════════════════════
-(function() {
-  function bindAIClose() {
-    var closeBtn = document.getElementById('ai-close');
-    var chatBox  = document.getElementById('ai-chat-box');
-    var toggle   = document.getElementById('ai-chat-toggle');
-    var widget   = document.getElementById('ai-chat');
+/* ════════════════════════════════════════════
+   AI CHAT FINAL FIX — v8
+   Runs AFTER script.js. Single event delegation.
+   No cloneNode on toggle (breaks script.js listeners).
+════════════════════════════════════════════ */
+(function aiChatFix() {
 
-    if (!closeBtn || !chatBox) return;
+  var WIDGET  = null;
+  var BOX     = null;
+  var TOGGLE  = null;
 
-    // Strip ALL old listeners by replacing the node
-    var fresh = closeBtn.cloneNode(true);
-    closeBtn.parentNode.replaceChild(fresh, closeBtn);
-
-    fresh.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-
-      // Hide the chat box
-      chatBox.setAttribute('hidden', '');
-
-      // Reset toggle aria state
-      if (toggle) toggle.setAttribute('aria-expanded', 'false');
-
-      // Add minimized class to widget (optional visual cue)
-      if (widget) widget.classList.add('minimized');
-
-      return false;
-    });
-
-    // Re-opening via toggle removes minimized class
-    if (toggle) {
-      var freshToggle = toggle.cloneNode(true);
-      toggle.parentNode.replaceChild(freshToggle, toggle);
-
-      freshToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var box = document.getElementById('ai-chat-box');
-        var w   = document.getElementById('ai-chat');
-        if (!box) return;
-
-        var isHidden = box.hasAttribute('hidden');
-        if (isHidden) {
-          box.removeAttribute('hidden');
-          freshToggle.setAttribute('aria-expanded', 'true');
-          if (w) w.classList.remove('minimized');
-          // Focus input
-          var inp = document.getElementById('ai-input');
-          if (inp) setTimeout(function(){ inp.focus(); }, 50);
-        } else {
-          box.setAttribute('hidden', '');
-          freshToggle.setAttribute('aria-expanded', 'false');
-          if (w) w.classList.add('minimized');
-        }
-      });
-    }
+  function getEls() {
+    WIDGET = document.getElementById('ai-chat');
+    BOX    = document.getElementById('ai-chat-box');
+    TOGGLE = document.getElementById('ai-chat-toggle');
   }
 
-  // Run immediately + after DOM ready + 400ms safety delay
+  /* ── CLOSE: minimise to 60px circle ── */
+  function doClose(e) {
+    if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
+    getEls();
+    if (!BOX || !WIDGET) return;
+    BOX.setAttribute('hidden', '');
+    WIDGET.classList.add('minimized');
+    if (TOGGLE) TOGGLE.setAttribute('aria-expanded', 'false');
+  }
+
+  /* ── OPEN: restore from minimized ── */
+  function doOpen() {
+    getEls();
+    if (!BOX || !WIDGET) return;
+    BOX.removeAttribute('hidden');
+    WIDGET.classList.remove('minimized');
+    if (TOGGLE) TOGGLE.setAttribute('aria-expanded', 'true');
+    var inp = document.getElementById('ai-input');
+    if (inp) setTimeout(function(){ inp.focus(); }, 40);
+  }
+
+  /* ── USE EVENT DELEGATION on document so it always fires ── */
+  function bindAll() {
+    getEls();
+    if (!WIDGET) return;
+
+    /* Delegated click on the whole document */
+    document.addEventListener('click', function(e) {
+
+      /* --- X close button --- */
+      if (e.target && (e.target.id === 'ai-close' || e.target.closest && e.target.closest('#ai-close'))) {
+        doClose(e);
+        return;
+      }
+
+      /* --- Toggle button while minimized: restore --- */
+      if (WIDGET && WIDGET.classList.contains('minimized')) {
+        if (e.target && (
+          e.target.id === 'ai-chat-toggle' ||
+          e.target.closest && e.target.closest('#ai-chat-toggle') ||
+          e.target.id === 'ai-chat' ||
+          WIDGET.contains(e.target)
+        )) {
+          doOpen();
+          return;
+        }
+      }
+
+    }, true); /* useCapture=true so it fires before other handlers */
+  }
+
+  /* Run at DOMContentLoaded AND 600ms after (catches late script.js rewrites) */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-      bindAIClose();
-      setTimeout(bindAIClose, 400);
+      bindAll();
+      setTimeout(bindAll, 600);
     });
   } else {
-    bindAIClose();
-    setTimeout(bindAIClose, 400);
+    bindAll();
+    setTimeout(bindAll, 600);
   }
 })();
 </script>

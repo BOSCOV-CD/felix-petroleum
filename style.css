@@ -1433,31 +1433,26 @@ img[src*="truck-fleet"] ~ .truck-logo-overlay {
 /* ── ROW 4: Motto ── */
 .fgc-motto-row {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-top: 2px;
+  align-items: center;
+  justify-content: flex-start;
   flex: 1;
+  padding: 4px 0;
 }
 .fgc-motto-main {
-  font-family: "Space Grotesk", serif;
-  font-size: 14px;
-  font-weight: 600;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
   color: #0A1A2F;
-  letter-spacing: .3px;
-  align-self: flex-start;
-  margin-top: 4px;
+  letter-spacing: .4px;
+  font-style: italic;
+  line-height: 1.3;
+  white-space: nowrap;
 }
-.fgc-motto-vert {
-  font-family: "Space Grotesk", serif;
-  font-size: 10px;
+/* hide the old vertical span — no longer used */
+.fgc-motto-vert { display: none; }
   font-weight: 600;
   color: rgba(10,26,47,.65);
   letter-spacing: 1.5px;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  line-height: 1.3;
-}
 
 /* ── ROW 5: Footer details ── */
 .fgc-row-footer {
