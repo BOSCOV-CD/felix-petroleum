@@ -527,3 +527,180 @@ window.handleSubmit = handleSubmit;
     }
   });
 })();
+
+/* ══════════════════════════════════════════════
+   FELIX v5 — GALLERY SLIDESHOW + HISTORY MODALS
+   + AI CHAT X FIX
+══════════════════════════════════════════════ */
+
+/* ─── GALLERY SLIDESHOW ──────────────────────── */
+(function initGallerySlider() {
+  const slides   = document.querySelectorAll('.gslide');
+  const dots     = document.querySelectorAll('.gsdot');
+  const prevBtn  = document.getElementById('gslider-prev');
+  const nextBtn  = document.getElementById('gslider-next');
+  const bar      = document.getElementById('gslider-bar');
+  const DURATION = 4000; // 4 seconds
+  let current    = 0;
+  let timer      = null;
+  let barTimer   = null;
+
+  if (!slides.length) return;
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current] && dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current] && dots[current].classList.add('active');
+    resetBar();
+  }
+
+  function resetBar() {
+    if (!bar) return;
+    clearTimeout(barTimer);
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    // Force reflow
+    bar.offsetWidth; // eslint-disable-line
+    bar.style.transition = `width ${DURATION}ms linear`;
+    bar.style.width = '100%';
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), DURATION);
+    resetBar();
+  }
+
+  function stopTimer() {
+    clearInterval(timer);
+    if (bar) { bar.style.transition = 'none'; }
+  }
+
+  prevBtn && prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goTo(current - 1);
+    startTimer();
+  });
+  nextBtn && nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goTo(current + 1);
+    startTimer();
+  });
+  dots.forEach(dot => dot.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goTo(parseInt(dot.dataset.gs, 10));
+    startTimer();
+  }));
+
+  // Pause on hover
+  const slider = document.getElementById('gslider');
+  slider && slider.addEventListener('mouseenter', stopTimer);
+  slider && slider.addEventListener('mouseleave', startTimer);
+
+  // Touch swipe
+  let tx = 0;
+  slider && slider.addEventListener('touchstart', e => { tx = e.changedTouches[0].screenX; }, { passive: true });
+  slider && slider.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - tx;
+    if (Math.abs(dx) > 40) { goTo(current + (dx > 0 ? -1 : 1)); startTimer(); }
+  }, { passive: true });
+
+  startTimer();
+})();
+
+/* ─── UNIVERSAL HISTORY MODAL ────────────────── */
+(function initHistoryModals() {
+  const overlay  = document.getElementById('hmodal-overlay');
+  const closeBtn = document.getElementById('hmodal-close');
+  const imgWrap  = document.getElementById('hmodal-img-wrap');
+  const img      = document.getElementById('hmodal-img');
+  const titleEl  = document.getElementById('hmodal-title');
+  const bodyEl   = document.getElementById('hmodal-body');
+  const tagEl    = document.getElementById('hmodal-tag');
+
+  if (!overlay) return;
+
+  function openModal(el) {
+    const title   = el.dataset.title   || '';
+    const history = el.dataset.history || '';
+    const imgSrc  = el.dataset.img     || (el.querySelector('img') ? el.querySelector('img').src : '');
+    const tag     = el.dataset.tag     || el.querySelector('.gslide-tag, .ntb-label, .news-tag, .card-num')?.textContent || 'Felix Petroleum';
+
+    titleEl.innerHTML = title;
+    bodyEl.innerHTML  = history;
+    tagEl.textContent = tag;
+
+    if (imgSrc) {
+      img.src = imgSrc;
+      img.alt = title;
+      imgWrap.classList.remove('no-img');
+    } else {
+      imgWrap.classList.add('no-img');
+    }
+
+    overlay.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    overlay.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+  }
+
+  // Bind all [data-modal] elements
+  document.querySelectorAll('[data-modal]').forEach(el => {
+    el.addEventListener('click', function(e) {
+      // Don't open if they clicked a child link/button
+      if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+      openModal(el);
+    });
+    el.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openModal(el);
+      }
+    });
+  });
+
+  closeBtn && closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !overlay.hasAttribute('hidden')) closeModal();
+  });
+})();
+
+/* ─── AI CHAT X BUTTON — DEFINITIVE FIX ─────── */
+(function fixAIChatClose() {
+  // Run after DOM is ready — use multiple selectors as fallback
+  function bindClose() {
+    const closeBtn = document.getElementById('ai-close');
+    const box      = document.getElementById('ai-chat-box');
+    const toggle   = document.getElementById('ai-chat-toggle');
+
+    if (!closeBtn || !box) return;
+
+    // Remove any old listeners by cloning
+    const newClose = closeBtn.cloneNode(true);
+    closeBtn.parentNode.replaceChild(newClose, closeBtn);
+
+    newClose.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      box.setAttribute('hidden', '');
+      toggle && toggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bindClose);
+  } else {
+    bindClose();
+    // Also try after a short delay in case other scripts re-render
+    setTimeout(bindClose, 500);
+  }
+})();
