@@ -283,6 +283,18 @@ h2 span { color: var(--gold2); }
   overflow: hidden;
 }
 .hero-media { position: absolute; inset: 0; }
+
+/* Video hero */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Static image fallback / no-JS */
 .hero-bg {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -508,6 +520,32 @@ h2 span { color: var(--gold2); }
 .about-badge-box strong { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
 .about-badge-box span  { display: block; font-size: 15px; font-weight: 700; }
 .about-badge-box small { display: block; font-size: 10px; letter-spacing: 1px; opacity: .7; }
+
+/* Founder tag overlay on about main image */
+.about-img-main { position: relative; }
+.founder-tag {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(4,10,20,.85));
+  padding: 48px 20px 20px;
+  color: var(--white);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+.founder-tag-name {
+  display: block;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+.founder-tag small {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--gold3);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
 
 .about-text .eyebrow { margin-bottom: 12px; }
 .about-lead {

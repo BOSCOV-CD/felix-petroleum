@@ -79,7 +79,19 @@
     <!-- ═══════════ HERO ═══════════ -->
     <section class="hero" aria-label="Hero">
       <div class="hero-media">
-        <img class="hero-bg" src="images/hero.jpg" alt="Felix Petroleum — energy operations in Nigeria" fetchpriority="high">
+        <video
+          class="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="assets/images/felix-pic.jpg"
+          aria-hidden="true"
+        >
+          <source src="assets/felix-petroleum-hero.mp4" type="video/mp4">
+          <!-- Fallback for browsers that don't support video -->
+          <img class="hero-bg" src="assets/images/felix-pic.jpg" alt="Felix Petroleum — energy operations in Nigeria">
+        </video>
         <div class="hero-overlay"></div>
         <div class="hero-overlay-gradient"></div>
       </div>
@@ -157,7 +169,11 @@
       <div class="container about-grid" data-reveal>
         <div class="about-media">
           <div class="about-img-main">
-            <img src="images/depot-terminal.jpg" alt="Felix Petroleum depot terminal">
+            <img src="assets/images/felix-pic.jpg" alt="Felix — Founder, Felix Petroleum">
+            <div class="founder-tag">
+              <span class="founder-tag-name">Felix Wanogho</span>
+              <small>Founder &amp; Managing Director</small>
+            </div>
           </div>
           <div class="about-img-accent">
             <img src="images/depot-loading.jpg" alt="Felix Petroleum loading operations">
@@ -425,8 +441,8 @@
           </div>
           <div class="gallery-col gallery-col-tall">
             <figure class="gallery-item tall" data-lightbox>
-              <img src="assets/images/felix-pic.jpg" alt="Felix Petroleum facility" loading="lazy">
-              <figcaption><span>Main Facility</span></figcaption>
+              <img src="assets/images/felix-pic.jpg" alt="Felix Wanogho — Founder, Felix Petroleum" loading="lazy">
+              <figcaption><span>Felix Wanogho — Founder &amp; MD</span></figcaption>
             </figure>
           </div>
           <div class="gallery-col">
