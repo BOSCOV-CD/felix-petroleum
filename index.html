@@ -645,21 +645,79 @@
       </div>
     </div>
     <div class="ops-image-strip">
-      <div class="ops-img-item">
+      <div class="ops-img-item" data-modal data-title="Certified Storage Facility" data-history="Our 2-million-liter Warri depot meets all DPR standards. Double-walled tanks with 24/7 leak detection. Zero contamination guarantee since 2019." data-img="images/diff-tanks.jpg" tabindex="0" role="button">
         <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80" alt="Storage tanks" loading="lazy">
         <span>Storage Tanks</span>
       </div>
-      <div class="ops-img-item">
+      <div class="ops-img-item" data-modal data-title="Safe Discharge Protocol" data-history="Certified hose-down procedure following NNPC & DPR guidelines. Quarterly HSE training for all staff. Zero spillage record." data-img="images/diff-discharge.jpg" tabindex="0" role="button">
         <img src="images/depot-loading.jpg" alt="Loading operations" loading="lazy">
         <span>Loading Bay</span>
       </div>
-      <div class="ops-img-item">
+      <div class="ops-img-item" data-modal data-title="Felix Black Fleet" data-history="38 GPS-tracked, matte black tankers. Launched 2023 for premium clients. Delivering PMS, AGO, DPK to all 36 states within 48hrs." data-img="images/diff-loading.jpg" tabindex="0" role="button">
         <img src="images/truck-fleet.jpg" alt="Truck fleet" loading="lazy">
         <span>Truck Fleet</span>
       </div>
-      <div class="ops-img-item">
+      <div class="ops-img-item" data-modal data-title="Aviation Fuel — Jet A1" data-history="Licensed aviation fuel supplier. Into-plane services with lab-tested Jet A1. Serving major Nigerian airports." data-img="images/diff-aviation.jpg" tabindex="0" role="button">
         <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&q=80" alt="Pipeline infrastructure" loading="lazy">
-        <span>Pipeline</span>
+        <span>Aviation & Pipeline</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     THE FELIX PETROLEUM DIFFERENCE — TABS
+══════════════════════════════════════ -->
+<section class="section diff-section" id="difference">
+  <div class="container" data-reveal>
+    <div class="section-head">
+      <div class="section-head-left">
+        <p class="eyebrow">03b — THE DIFFERENCE</p>
+        <h2>The Felix Petroleum <span>Difference</span></h2>
+      </div>
+      <p class="section-head-right">Click any tab to explore our facilities, fleet and operations in detail — each backed by real data and certification.</p>
+    </div>
+
+    <div class="diff-tabs" role="tablist">
+      <button class="diff-tab active" role="tab" aria-selected="true"  data-tab="tanks"    onclick="switchDiffTab(this,'tanks')">
+        <span class="dt-icon">🛢</span> Storage Tanks
+      </button>
+      <button class="diff-tab"        role="tab" aria-selected="false" data-tab="loading"  onclick="switchDiffTab(this,'loading')">
+        <span class="dt-icon">⚙️</span> Loading Bay
+      </button>
+      <button class="diff-tab"        role="tab" aria-selected="false" data-tab="fleet"    onclick="switchDiffTab(this,'fleet')">
+        <span class="dt-icon">🚚</span> Truck Fleet
+      </button>
+      <button class="diff-tab"        role="tab" aria-selected="false" data-tab="pipeline" onclick="switchDiffTab(this,'pipeline')">
+        <span class="dt-icon">🔧</span> Pipeline
+      </button>
+      <button class="diff-tab"        role="tab" aria-selected="false" data-tab="aviation" onclick="switchDiffTab(this,'aviation')">
+        <span class="dt-icon">✈️</span> Aviation
+      </button>
+      <button class="diff-tab"        role="tab" aria-selected="false" data-tab="investors" onclick="switchDiffTab(this,'investors')">
+        <span class="dt-icon">📈</span> Investors
+      </button>
+    </div>
+
+    <div class="diff-panel" id="diff-panel">
+      <!-- Default: tanks -->
+      <div class="diff-panel-inner" id="diff-content">
+        <div class="diff-img-col">
+          <img id="diff-img" src="images/diff-tanks.jpg" alt="Certified Storage Facility">
+        </div>
+        <div class="diff-text-col">
+          <div class="diff-tag" id="diff-tag">Facilities</div>
+          <h3 id="diff-title">Certified Storage Facility</h3>
+          <p id="diff-body">Our 2-million-liter Warri depot meets all DPR standards. Double-walled tanks with 24/7 leak detection. Zero contamination guarantee since 2019.</p>
+          <ul class="diff-bullets" id="diff-bullets">
+            <li>✔ DPR-certified infrastructure</li>
+            <li>✔ 2 million litre capacity</li>
+            <li>✔ Double-walled, leak-monitored tanks</li>
+            <li>✔ Zero contamination since 2019</li>
+          </ul>
+          <a href="#contact" class="btn btn-gold" id="diff-cta" style="margin-top:20px;width:fit-content;">Enquire About Storage ↗</a>
+          <a href="https://wa.me/2349033758973?text=Investor%20enquiry%20-%20Felix%20Petroleum" target="_blank" rel="noopener" class="diff-download-btn" id="diff-download" style="display:none;">📥 Download Investor Pack</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1260,150 +1318,131 @@
 <script src="script.js"></script>
 
 <!-- ═══════════════════════════════════════
-     AI CHAT CLOSE — FINAL FIX v8
-     Single source of truth. No conflicts.
+     TABS + AI FIX + HISTORY — FINAL v9
 ═══════════════════════════════════════ -->
 <style>
-/* ── Minimized: widget collapses to 60px circle ── */
 .ai-chat-widget.minimized {
-  width: 60px !important;
-  height: 60px !important;
-  border-radius: 50% !important;
-  overflow: hidden !important;
-  cursor: pointer;
+  width: 60px !important; height: 60px !important;
+  border-radius: 50% !important; overflow: hidden !important; cursor: pointer;
 }
 .ai-chat-widget.minimized .ai-chat-box,
 .ai-chat-widget.minimized .ai-label,
 .ai-chat-widget.minimized .ai-pulse { display: none !important; }
 .ai-chat-widget.minimized .ai-chat-toggle {
-  width: 60px !important;
-  height: 60px !important;
-  border-radius: 50% !important;
-  padding: 0 !important;
-  justify-content: center !important;
-  background: #0A1A2F !important;
-  border: 2px solid #FFC107 !important;
+  width: 60px !important; height: 60px !important; border-radius: 50% !important;
+  padding: 0 !important; justify-content: center !important;
+  background: #0A1A2F !important; border: 2px solid #FFC107 !important;
 }
 .ai-chat-widget.minimized .ai-icon { font-size: 26px !important; }
-
-/* ── Chat box open animation ── */
-.ai-chat-box:not([hidden]) {
-  animation: ai-pop-in .25s cubic-bezier(.22,1,.36,1);
-}
-@keyframes ai-pop-in {
-  from { opacity:0; transform:translateY(14px) scale(.96); }
-  to   { opacity:1; transform:translateY(0) scale(1); }
-}
-
-/* ── Close button styling ── */
+.ai-chat-box:not([hidden]) { animation: ai-pop-in .25s cubic-bezier(.22,1,.36,1); }
+@keyframes ai-pop-in { from{opacity:0;transform:translateY(14px) scale(.96);} to{opacity:1;transform:translateY(0) scale(1);} }
 #ai-close {
-  flex-shrink: 0;
-  width: 30px !important;
-  height: 30px !important;
-  min-width: 30px;
-  border-radius: 50% !important;
-  background: rgba(255,193,7,.12) !important;
-  border: 1.5px solid rgba(255,193,7,.4) !important;
-  color: #FFC107 !important;
-  font-size: 14px !important;
-  font-weight: 700;
-  display: grid !important;
-  place-items: center !important;
-  cursor: pointer !important;
-  transition: background .18s, color .18s;
-  position: relative;
-  z-index: 99;
-  pointer-events: all !important;
-  /* Override any inherited pointer-events:none */
-  visibility: visible !important;
-  opacity: 1 !important;
+  flex-shrink:0; width:30px !important; height:30px !important; min-width:30px;
+  border-radius:50% !important; background:rgba(255,193,7,.12) !important;
+  border:1.5px solid rgba(255,193,7,.4) !important; color:#FFC107 !important;
+  font-size:14px !important; font-weight:700; display:grid !important;
+  place-items:center !important; cursor:pointer !important;
+  transition:background .18s,color .18s; position:relative; z-index:99;
+  pointer-events:all !important; visibility:visible !important; opacity:1 !important;
 }
-#ai-close:hover {
-  background: #FFC107 !important;
-  color: #0A1A2F !important;
-  border-color: #FFC107 !important;
-}
+#ai-close:hover { background:#FFC107 !important; color:#0A1A2F !important; border-color:#FFC107 !important; }
 </style>
 
 <script>
-/* ════════════════════════════════════════════
-   AI CHAT FINAL FIX — v8
-   Runs AFTER script.js. Single event delegation.
-   No cloneNode on toggle (breaks script.js listeners).
-════════════════════════════════════════════ */
-(function aiChatFix() {
+/* ══════════════════════════════════════
+   HISTORY DATA — ALL MODALS
+══════════════════════════════════════ */
+var historyData = {
+  tanks:    { tag:'Facilities',  title:'Certified Storage Facility',    img:'images/diff-tanks.jpg',    body:'Our 2-million-liter Warri depot meets all DPR standards. Double-walled tanks with 24/7 leak detection. Zero contamination guarantee since 2019.', bullets:['✔ DPR-certified infrastructure','✔ 2 million litre capacity','✔ Double-walled, leak-monitored tanks','✔ Zero contamination since 2019'], cta:'Enquire About Storage ↗', download:false },
+  loading:  { tag:'Operations',  title:'Loading Bay Operations',         img:'images/diff-loading.jpg',  body:'24/7 automated loading system with safety interlocks. Average truck turnaround time: 45 minutes. Every loading session is supervised, documented and quality-tested before departure.', bullets:['✔ Automated safety interlocks','✔ 45-min average turnaround','✔ HSE-certified staff on-site','✔ Digital loading records'], cta:'Learn About Logistics ↗', download:false },
+  fleet:    { tag:'Logistics',   title:'Felix Black Fleet',              img:'images/diff-loading.jpg',  body:'38 GPS-tracked, matte black tankers. Launched 2023 for premium clients. Delivering PMS, AGO, DPK to all 36 states within 48 hours.', bullets:['✔ 38 GPS-tracked tankers','✔ Matte black premium branding','✔ All 36 states in 48 hrs','✔ Real-time dispatch monitoring'], cta:'Request Delivery ↗', download:false },
+  pipeline: { tag:'Distribution',title:'Pipeline Distribution',         img:'images/diff-tanks.jpg',    body:'Direct pipeline access to major NNPC depots. Metered and secure transfer to reduce losses and ensure product integrity at every stage of the supply chain.', bullets:['✔ Direct NNPC depot access','✔ Metered, loss-free transfer','✔ Secure product integrity','✔ Bulk volume capability'], cta:'Enquire About Pipeline ↗', download:false },
+  aviation: { tag:'Aviation',    title:'Aviation Fuel — Jet A1',         img:'images/diff-aviation.jpg', body:'Licensed aviation fuel supplier. Into-plane services with lab-tested Jet A1. Every batch is tested for density, flashpoint and water content before delivery to aircraft at major Nigerian airports.', bullets:['✔ Licensed Jet A1 supplier','✔ Lab-tested every batch','✔ Into-plane delivery','✔ Major Nigerian airports served'], cta:'Contact Aviation Desk ↗', download:false },
+  investors:{ tag:'Investors',   title:'Investment Opportunities',       img:'images/depot-rivers.jpg',  body:'Unlock growth with Felix Petroleum. Nigeria\'s downstream sector is expanding rapidly. Felix Petroleum offers transparent, structured investment opportunities in bulk distribution and logistics infrastructure.', bullets:['✔ 2024 Audited Financials available','✔ Growing distribution network','✔ Strategic Niger Delta positioning','✔ Long-term client contracts'], cta:'Talk to Investor Relations ↗', download:true }
+};
 
-  var WIDGET  = null;
-  var BOX     = null;
-  var TOGGLE  = null;
+/* ══════════════════════════════════════
+   SWITCH DIFF TAB
+══════════════════════════════════════ */
+function switchDiffTab(el, key) {
+  // Update active tab
+  document.querySelectorAll('.diff-tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  el.classList.add('active');
+  el.setAttribute('aria-selected','true');
 
-  function getEls() {
-    WIDGET = document.getElementById('ai-chat');
-    BOX    = document.getElementById('ai-chat-box');
-    TOGGLE = document.getElementById('ai-chat-toggle');
+  var d = historyData[key];
+  if (!d) return;
+
+  // Update image
+  var img = document.getElementById('diff-img');
+  if (img) { img.src = d.img; img.alt = d.title; }
+
+  // Update text
+  var tag = document.getElementById('diff-tag');
+  var title = document.getElementById('diff-title');
+  var body = document.getElementById('diff-body');
+  var bullets = document.getElementById('diff-bullets');
+  var ctaBtn = document.getElementById('diff-cta');
+  var dlBtn = document.getElementById('diff-download');
+
+  if (tag) tag.textContent = d.tag;
+  if (title) title.textContent = d.title;
+  if (body) body.textContent = d.body;
+  if (bullets) {
+    bullets.innerHTML = d.bullets.map(function(b){ return '<li>' + b + '</li>'; }).join('');
   }
+  if (ctaBtn) ctaBtn.textContent = d.cta;
+  if (dlBtn) dlBtn.style.display = d.download ? 'inline-flex' : 'none';
 
-  /* ── CLOSE: minimise to 60px circle ── */
+  // Re-trigger animation
+  var panel = document.querySelector('.diff-panel-inner');
+  if (panel) { panel.style.animation = 'none'; panel.offsetHeight; panel.style.animation = ''; }
+}
+
+/* ══════════════════════════════════════
+   AI CHAT TOGGLE (minimized)
+══════════════════════════════════════ */
+function toggleAI() {
+  var w = document.getElementById('ai-chat');
+  if (w) w.classList.toggle('minimized');
+}
+
+/* ══════════════════════════════════════
+   AI CHAT X CLOSE — FINAL FIX
+   Event delegation, capture phase
+══════════════════════════════════════ */
+(function aiChatFix() {
   function doClose(e) {
     if (e) { e.preventDefault(); e.stopImmediatePropagation(); }
-    getEls();
-    if (!BOX || !WIDGET) return;
-    BOX.setAttribute('hidden', '');
-    WIDGET.classList.add('minimized');
-    if (TOGGLE) TOGGLE.setAttribute('aria-expanded', 'false');
+    var box    = document.getElementById('ai-chat-box');
+    var widget = document.getElementById('ai-chat');
+    var toggle = document.getElementById('ai-chat-toggle');
+    if (box) box.setAttribute('hidden', '');
+    if (widget) widget.classList.add('minimized');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
   }
-
-  /* ── OPEN: restore from minimized ── */
   function doOpen() {
-    getEls();
-    if (!BOX || !WIDGET) return;
-    BOX.removeAttribute('hidden');
-    WIDGET.classList.remove('minimized');
-    if (TOGGLE) TOGGLE.setAttribute('aria-expanded', 'true');
+    var box    = document.getElementById('ai-chat-box');
+    var widget = document.getElementById('ai-chat');
+    var toggle = document.getElementById('ai-chat-toggle');
+    if (box) box.removeAttribute('hidden');
+    if (widget) widget.classList.remove('minimized');
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
     var inp = document.getElementById('ai-input');
     if (inp) setTimeout(function(){ inp.focus(); }, 40);
   }
-
-  /* ── USE EVENT DELEGATION on document so it always fires ── */
-  function bindAll() {
-    getEls();
-    if (!WIDGET) return;
-
-    /* Delegated click on the whole document */
+  function bind() {
     document.addEventListener('click', function(e) {
-
-      /* --- X close button --- */
-      if (e.target && (e.target.id === 'ai-close' || e.target.closest && e.target.closest('#ai-close'))) {
-        doClose(e);
-        return;
-      }
-
-      /* --- Toggle button while minimized: restore --- */
-      if (WIDGET && WIDGET.classList.contains('minimized')) {
-        if (e.target && (
-          e.target.id === 'ai-chat-toggle' ||
-          e.target.closest && e.target.closest('#ai-chat-toggle') ||
-          e.target.id === 'ai-chat' ||
-          WIDGET.contains(e.target)
-        )) {
-          doOpen();
-          return;
-        }
-      }
-
-    }, true); /* useCapture=true so it fires before other handlers */
+      if (!e.target) return;
+      var closeEl = e.target.id === 'ai-close' || (e.target.closest && e.target.closest('#ai-close'));
+      if (closeEl) { doClose(e); return; }
+      var widget = document.getElementById('ai-chat');
+      if (widget && widget.classList.contains('minimized') && widget.contains(e.target)) { doOpen(); return; }
+    }, true);
   }
-
-  /* Run at DOMContentLoaded AND 600ms after (catches late script.js rewrites) */
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      bindAll();
-      setTimeout(bindAll, 600);
-    });
-  } else {
-    bindAll();
-    setTimeout(bindAll, 600);
-  }
+    document.addEventListener('DOMContentLoaded', function(){ bind(); setTimeout(bind, 600); });
+  } else { bind(); setTimeout(bind, 600); }
 })();
 </script>
 </body>

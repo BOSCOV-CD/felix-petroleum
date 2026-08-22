@@ -1513,3 +1513,157 @@ img[src*="truck-fleet"] ~ .truck-logo-overlay {
   .felix-gold-card { width: 100%; border-radius: 14px; padding: 18px 18px 14px; }
   .fgc-number { font-size: 14px; letter-spacing: 2px; }
 }
+
+/* ══════════════════════════════════════════════
+   FELIX v9 — TABS DIFFERENCE SECTION
+══════════════════════════════════════════════ */
+
+/* ─── DIFF SECTION ───────────────────────────── */
+.diff-section { background: #f7f4ee; }
+
+.diff-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 0;
+  background: #0A1A2F;
+  border-radius: 12px 12px 0 0;
+  padding: 6px 6px 0;
+}
+.diff-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  background: rgba(255,255,255,.07);
+  border: none;
+  border-radius: 8px 8px 0 0;
+  color: rgba(255,255,255,.6);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  position: relative;
+}
+.diff-tab:hover { background: rgba(255,255,255,.14); color: #fff; }
+.diff-tab.active {
+  background: #FFC107;
+  color: #0A1A2F;
+  font-weight: 700;
+}
+.diff-tab.active .dt-icon { filter: none; }
+.dt-icon { font-size: 16px; }
+
+.diff-panel {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+  min-height: 360px;
+}
+.diff-panel-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 360px;
+  animation: diff-fade-in .35s ease;
+}
+@keyframes diff-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.diff-img-col {
+  overflow: hidden;
+  position: relative;
+}
+.diff-img-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+.diff-img-col:hover img { transform: scale(1.04); }
+
+.diff-text-col {
+  padding: 44px 44px 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.diff-tag {
+  display: inline-block;
+  background: rgba(255,193,7,.15);
+  border: 1px solid rgba(255,193,7,.4);
+  color: #c9920a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 14px;
+  width: fit-content;
+}
+.diff-text-col h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 700;
+  color: #0A1A2F;
+  letter-spacing: -.5px;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.diff-text-col #diff-body {
+  font-size: 15px;
+  color: #6b7a8d;
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+.diff-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.diff-bullets li {
+  font-size: 14px;
+  color: #0A1A2F;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.diff-bullets li::before { content: none; }
+
+/* Download button for investor tab */
+.diff-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0A1A2F;
+  color: #FFC107;
+  border: 1.5px solid #FFC107;
+  border-radius: 4px;
+  padding: 12px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+  width: fit-content;
+  margin-top: 8px;
+}
+.diff-download-btn:hover { background: #FFC107; color: #0A1A2F; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .diff-panel-inner { grid-template-columns: 1fr; }
+  .diff-img-col { aspect-ratio: 16/9; height: auto; }
+  .diff-text-col { padding: 28px 22px; }
+  .diff-tabs { border-radius: 8px 8px 0 0; }
+  .diff-tab { padding: 10px 14px; font-size: 12px; }
+}
