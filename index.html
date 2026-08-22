@@ -460,40 +460,101 @@
     </div>
 
     <div class="petro-card-grid">
-      <!-- Visual Card -->
+      <!-- Visual Card — Premium Gold ATM Card -->
       <div class="petro-card-visual">
-        <div class="petro-card">
-          <div class="petro-card-top">
-            <div class="petro-card-logo">
-              <svg viewBox="0 0 60 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M14 2 C8 2 3 7 3 13 C3 19 7 23 12 25 L12 27 C12 27.6 12.4 28 13 28 C13.6 28 14 27.6 14 27 L14 25 C19 23 23 19 23 13 C23 7 20 2 14 2Z" fill="#FFC107"/>
-                <circle cx="11" cy="12" r="1.8" fill="#0A1A2F"/>
-                <circle cx="17" cy="12" r="1.8" fill="#0A1A2F"/>
-                <path d="M10 17 C10 15 12 13 14 13 C16 13 18 15 18 17" stroke="#0A1A2F" stroke-width="1.5" stroke-linecap="round"/>
-                <text x="28" y="18" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="11" fill="white" letter-spacing="2">FELIX</text>
-              </svg>
-            </div>
-            <span class="petro-card-type">PETROLEUM CARD</span>
-          </div>
-          <div class="petro-card-chip">
-            <div class="chip-lines">
-              <span></span><span></span><span></span>
-            </div>
-          </div>
-          <div class="petro-card-number">**** **** **** 2026</div>
-          <div class="petro-card-footer">
-            <div>
-              <small>CARD HOLDER</small>
-              <span>FELIX PETROLEUM</span>
-            </div>
-            <div>
-              <small>VALID THRU</small>
-              <span>12/29</span>
-            </div>
-          </div>
-        </div>
-        <!-- Glow behind card -->
         <div class="petro-card-glow" aria-hidden="true"></div>
+        <div class="felix-gold-card" aria-label="Felix Petroleum Gold Card">
+
+          <!-- Shine sweep overlay -->
+          <div class="fgc-shine" aria-hidden="true"></div>
+
+          <!-- Subtle circuit pattern -->
+          <div class="fgc-pattern" aria-hidden="true">
+            <svg viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+              <circle cx="340" cy="200" r="120" stroke="rgba(10,26,47,0.08)" stroke-width="1.5" fill="none"/>
+              <circle cx="340" cy="200" r="80"  stroke="rgba(10,26,47,0.06)" stroke-width="1"   fill="none"/>
+              <circle cx="340" cy="200" r="40"  stroke="rgba(10,26,47,0.05)" stroke-width="1"   fill="none"/>
+              <line x1="0" y1="125" x2="400" y2="125" stroke="rgba(10,26,47,0.04)" stroke-width="1"/>
+              <line x1="200" y1="0" x2="200" y2="250" stroke="rgba(10,26,47,0.04)" stroke-width="1"/>
+            </svg>
+          </div>
+
+          <!-- ROW 1: Logo + Card type -->
+          <div class="fgc-row-top">
+            <div class="fgc-brand">
+              <!-- Dragon SVG in navy -->
+              <svg class="fgc-dragon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 3 C12 3 7 8 7 14 C7 20 11 24 16 26 L16 29 C16 29.6 17 30 18 30 C19 30 20 29.6 20 29 L20 26 C25 24 29 20 29 14 C29 8 24 3 18 3Z" fill="#0A1A2F"/>
+                <path d="M18 3 C12 3 7 8 7 14 C7 20 11 24 16 26 L16 29 C16 29.6 17 30 18 30 C19 30 20 29.6 20 29 L20 26 C25 24 29 20 29 14 C29 8 24 3 18 3Z" stroke="rgba(10,26,47,0.4)" stroke-width="0.8" fill="none"/>
+                <circle cx="14.5" cy="13" r="2" fill="#0A1A2F" opacity="0.8"/>
+                <circle cx="21.5" cy="13" r="2" fill="#0A1A2F" opacity="0.8"/>
+                <path d="M14 17 C14 15.5 16 14 18 14 C20 14 22 15.5 22 17" stroke="#0A1A2F" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                <path d="M8 9 L4 6 L7 10" stroke="#0A1A2F" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                <path d="M28 9 L32 6 L29 10" stroke="#0A1A2F" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+              </svg>
+              <div class="fgc-brand-text">
+                <span class="fgc-name">FELIX</span>
+                <span class="fgc-sub">PETROLEUM</span>
+              </div>
+            </div>
+            <div class="fgc-network">
+              <!-- Mastercard-style circles -->
+              <div class="fgc-mc">
+                <span class="fgc-mc-left"></span>
+                <span class="fgc-mc-right"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ROW 2: Chip + Contactless -->
+          <div class="fgc-row-chip">
+            <div class="fgc-chip">
+              <div class="fgc-chip-inner">
+                <span class="fgc-chip-h"></span>
+                <span class="fgc-chip-v"></span>
+                <span class="fgc-chip-dot"></span>
+              </div>
+            </div>
+            <svg class="fgc-nfc" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 12 C6 8.7 8.7 6 12 6" stroke="#0A1A2F" stroke-width="1.8" stroke-linecap="round" opacity="0.5"/>
+              <path d="M4 12 C4 7.6 7.6 4 12 4" stroke="#0A1A2F" stroke-width="1.8" stroke-linecap="round" opacity="0.35"/>
+              <path d="M2 12 C2 6.5 6.5 2 12 2"  stroke="#0A1A2F" stroke-width="1.8" stroke-linecap="round" opacity="0.2"/>
+              <circle cx="12" cy="12" r="2" fill="#0A1A2F" opacity="0.55"/>
+            </svg>
+          </div>
+
+          <!-- ROW 3: Card number -->
+          <div class="fgc-number">5243 &nbsp; 8912 &nbsp; 0045 &nbsp; 6789</div>
+
+          <!-- ROW 4: Motto (the "Catering to your energy needs" text) -->
+          <div class="fgc-motto-row">
+            <span class="fgc-motto-main">Catering to</span>
+            <span class="fgc-motto-vert">your energy needs.</span>
+          </div>
+
+          <!-- ROW 5: Holder / Valid / CVV -->
+          <div class="fgc-row-footer">
+            <div class="fgc-footer-group">
+              <small>CARD HOLDER</small>
+              <span>FELIX CUSTOMER</span>
+            </div>
+            <div class="fgc-footer-group">
+              <small>VALID THRU</small>
+              <span>08/30</span>
+            </div>
+            <div class="fgc-footer-group">
+              <small>CVV</small>
+              <span>•••</span>
+            </div>
+          </div>
+
+          <!-- Bottom bar -->
+          <div class="fgc-bottom-bar">
+            <span class="fgc-card-label">FELIX PETROLEUM CARD</span>
+            <span class="fgc-tagline">Order Fuel &amp; Diesel Online</span>
+          </div>
+
+        </div><!-- /.felix-gold-card -->
       </div>
 
       <!-- Card Benefits -->
