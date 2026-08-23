@@ -1445,5 +1445,113 @@ function toggleAI() {
   } else { bind(); setTimeout(bind, 600); }
 })();
 </script>
+
+<!-- ══════════════════════════════════════
+     MATTE BLACK TANKS + FELIX LOGO — v10
+══════════════════════════════════════ -->
+<style>
+.felix-branded-wrap {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  line-height: 0;
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+}
+.felix-branded-wrap > img {
+  filter: brightness(0.2) grayscale(100%) contrast(1.1) !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+.felix-brand-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  pointer-events: none;
+  user-select: none;
+  animation: logo-glow 3s ease-in-out infinite;
+}
+@keyframes logo-glow {
+  0%,100% { filter: drop-shadow(0 0 10px rgba(255,193,7,.8)) drop-shadow(0 0 22px rgba(255,193,7,.4)); }
+  50%      { filter: drop-shadow(0 0 22px rgba(255,193,7,1)) drop-shadow(0 0 44px rgba(255,193,7,.7)); }
+}
+.felix-brand-overlay img.fbo-logo {
+  width: 90px !important;
+  height: auto !important;
+  filter: none !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+.felix-brand-overlay .fbo-tag {
+  background: rgba(10,26,47,.88);
+  border: 1px solid #FFC107;
+  border-radius: 3px;
+  padding: 3px 10px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  color: #FFC107;
+  white-space: nowrap;
+}
+</style>
+
+<script>
+(function injectFelixBranding() {
+  var KEYWORDS = [
+    'truck','tanker','fleet','haulage',
+    'depot','tank','storage','loading','discharge',
+    'aviation','fueldepot','ops-fuel','ops-aviation',
+    'ops-discharge','ops-helmet','diff-tank','diff-loading',
+    'storage-tanks-new','truck-black','truck-fleet'
+  ];
+  var LOGO_SRC = 'images/felix-logo-brand.jpg';
+
+  function isTankOrTruck(img) {
+    var src = (img.getAttribute('src') || '').toLowerCase();
+    var alt = (img.getAttribute('alt') || '').toLowerCase();
+    return KEYWORDS.some(function(k){ return src.indexOf(k) !== -1 || alt.indexOf(k) !== -1; });
+  }
+
+  function wrapImg(img) {
+    if (img.closest && img.closest('.felix-branded-wrap')) return;
+    if (img.classList.contains('fbo-logo')) return;
+    if (!isTankOrTruck(img)) return;
+    var parent = img.parentElement;
+    if (!parent) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'felix-branded-wrap';
+    var pStyle = getComputedStyle(parent);
+    if (pStyle.position === 'absolute' || pStyle.position === 'fixed') {
+      wrap.style.position = 'absolute';
+      wrap.style.inset = '0';
+    }
+    parent.insertBefore(wrap, img);
+    wrap.appendChild(img);
+    var overlay = document.createElement('div');
+    overlay.className = 'felix-brand-overlay';
+    overlay.innerHTML = '<img class="fbo-logo" src="' + LOGO_SRC + '" alt="Felix Petroleum" loading="lazy"><span class="fbo-tag">FELIX PETROLEUM</span>';
+    wrap.appendChild(overlay);
+  }
+
+  function runOnAll() { document.querySelectorAll('img').forEach(wrapImg); }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runOnAll);
+  } else {
+    runOnAll();
+  }
+  window.addEventListener('load', runOnAll);
+})();
+</script>
 </body>
 </html>
