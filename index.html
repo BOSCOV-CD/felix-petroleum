@@ -1447,17 +1447,17 @@ function toggleAI() {
 </script>
 
 <!-- ══════════════════════════════════════
-     MATTE BLACK TANKS + FELIX LOGO — v11
-     FIXED: only exact truck/tank srcs targeted
+     MATTE BLACK TANKERS + LOGO ON BODY — v12
+     Logo only on tanker body. No floating overlays.
 ══════════════════════════════════════ -->
 <style>
-/* Only images explicitly flagged with data-brand="matte" get the filter */
-img[data-brand="matte"] {
-  filter: brightness(0.2) grayscale(100%) contrast(1.1) !important;
+/* ── Matte black on the two tanker images only ── */
+img[data-tanker="yes"] {
+  filter: brightness(0.22) grayscale(100%) contrast(1.1) !important;
 }
 
-/* Wrapper for branded images */
-.felix-branded-wrap {
+/* ── Tanker wrapper: needed for logo-as-decal on body ── */
+.tanker-wrap {
   position: relative;
   display: block;
   overflow: hidden;
@@ -1466,156 +1466,134 @@ img[data-brand="matte"] {
   width: 100%;
   height: 100%;
 }
-.felix-branded-wrap > img[data-brand="matte"] {
+.tanker-wrap img[data-tanker="yes"] {
   display: block !important;
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
 }
 
-/* FELIX logo overlay */
-.felix-brand-overlay {
+/* ── FELIX logo decal — on the SIDE BODY of the tanker ──
+   Positioned at ~55% from top (body of the truck/tank),
+   horizontally centred, like a painted decal on the side.
+── */
+.tanker-decal {
   position: absolute;
-  top: 50%;
+  /* Lower half = tank body area */
+  bottom: 22%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  transform: translateX(-50%);
+  width: 110px;
   pointer-events: none;
   user-select: none;
-  animation: logo-glow 3s ease-in-out infinite;
+  z-index: 5;
+  /* Blend to look painted on */
+  mix-blend-mode: screen;
+  opacity: 0.82;
+  /* Subtle gold glow so it reads against the dark */
+  filter: drop-shadow(0 0 6px rgba(255,193,7,.7)) brightness(1.15);
 }
-@keyframes logo-glow {
-  0%,100% { filter: drop-shadow(0 0 10px rgba(255,193,7,.8)) drop-shadow(0 0 22px rgba(255,193,7,.4)); }
-  50%      { filter: drop-shadow(0 0 22px rgba(255,193,7,1)) drop-shadow(0 0 44px rgba(255,193,7,.7)); }
-}
-.felix-brand-overlay img.fbo-logo {
-  width: 90px !important;
-  height: auto !important;
-  filter: none !important;
-  object-fit: contain !important;
-  display: block !important;
-}
-.felix-brand-overlay .fbo-tag {
-  background: rgba(10,26,47,.88);
-  border: 1px solid #FFC107;
-  border-radius: 3px;
-  padding: 3px 10px;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 2.5px;
-  color: #FFC107;
-  white-space: nowrap;
-}
-
-/* Kill any stale .felix-branded-wrap filters on non-matte images */
-.felix-branded-wrap > img:not([data-brand="matte"]) {
-  filter: none !important;
+/* On hover, logo brightens slightly to confirm it's there */
+.tanker-wrap:hover .tanker-decal {
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(255,193,7,.95)) brightness(1.3);
+  transition: opacity .3s, filter .3s;
 }
 </style>
 
 <script>
 /* ══════════════════════════════════════
-   MATTE BLACK + FELIX LOGO OVERLAY v11
-   SAFE: only exact src paths get treated
+   TANKER BRANDING v12
+   - Matte black + FELIX logo on tank BODY only
+   - Only truck-black.jpg and truck-fleet.jpg
+   - No logo on any other image
+   - Cleans up any stale v10/v11 wraps first
 ══════════════════════════════════════ */
-(function injectFelixBranding() {
-  /* EXACT src substrings that should go matte black with logo overlay.
-     Must NOT include: felix-pic, felix-pic-2, felix-pic-3, depot-rivers,
-     og-image, favicon, logo-brand, logo-mark, cover, hero, background images */
-  var MATTE_SRCS = [
-    'truck-black',
-    'truck-fleet',
-    'storage-tanks-new',
-    'depot-tanks',
-    'diff-tanks',
-    'diff-loading',
-    'diff-aviation',
-    'diff-discharge',
-    'ops-fueldepot',
-    'ops-aviation',
-    'ops-discharge'
-  ];
+(function tankerBranding() {
 
-  var LOGO_SRC = 'images/felix-logo-brand.jpg';
+  /* Only these two src strings get treated */
+  var TANKER_SRCS = ['truck-black', 'truck-fleet'];
+  var LOGO_SRC    = 'images/felix-logo-brand.jpg';
 
-  function shouldMatte(img) {
-    var src = (img.getAttribute('src') || '').toLowerCase();
-    /* Skip the logo itself, SVGs, preloader, nav, portraits */
-    if (img.classList.contains('fbo-logo')) return false;
-    if (img.closest('.preloader-dragon, .brand-dragon, .ai-avatar, .about-img-main, .about-img-accent, .felix-gold-card, .fgc-dragon, .hmodal-img, .lightbox-img')) return false;
-    return MATTE_SRCS.some(function(k) { return src.indexOf(k) !== -1; });
-  }
-
-  function wrapImg(img) {
-    if (img.closest && img.closest('.felix-branded-wrap')) return;
-    if (!shouldMatte(img)) return;
-
-    /* Mark image for CSS filter */
-    img.setAttribute('data-brand', 'matte');
-
-    var parent = img.parentElement;
-    if (!parent) return;
-
-    /* Don't double-wrap */
-    if (parent.classList && parent.classList.contains('felix-branded-wrap')) return;
-
-    var wrap = document.createElement('div');
-    wrap.className = 'felix-branded-wrap';
-
-    var pStyle = getComputedStyle(parent);
-    if (pStyle.position === 'absolute' || pStyle.position === 'fixed') {
-      wrap.style.cssText = 'position:absolute;inset:0;';
-    }
-
-    parent.insertBefore(wrap, img);
-    wrap.appendChild(img);
-
-    /* Inject FELIX logo overlay */
-    var overlay = document.createElement('div');
-    overlay.className = 'felix-brand-overlay';
-    overlay.innerHTML =
-      '<img class="fbo-logo" src="' + LOGO_SRC + '" alt="Felix Petroleum logo" loading="lazy">' +
-      '<span class="fbo-tag">FELIX PETROLEUM</span>';
-    wrap.appendChild(overlay);
-  }
-
-  function runOnAll() {
-    document.querySelectorAll('img:not(.fbo-logo)').forEach(wrapImg);
-  }
-
-  /* Also remove any stale felix-branded-wrap on images that shouldn't have it */
-  function cleanStale() {
+  /* Step 1: Clean up any leftover v10/v11 .felix-branded-wrap wrappers */
+  function cleanOldWraps() {
     document.querySelectorAll('.felix-branded-wrap').forEach(function(wrap) {
-      var img = wrap.querySelector('img');
-      if (!img || !img.getAttribute('data-brand')) {
-        /* Unwrap: move img back to parent, remove wrap */
-        var parent = wrap.parentElement;
-        if (parent) {
-          while (wrap.firstChild) parent.insertBefore(wrap.firstChild, wrap);
-          parent.removeChild(wrap);
+      var parent = wrap.parentElement;
+      if (!parent) return;
+      /* Move all children back to parent then remove the wrap */
+      while (wrap.firstChild) {
+        parent.insertBefore(wrap.firstChild, wrap);
+      }
+      parent.removeChild(wrap);
+    });
+    /* Also clear any leftover data-brand attributes */
+    document.querySelectorAll('img[data-brand]').forEach(function(img) {
+      img.removeAttribute('data-brand');
+      img.style.filter = '';
+    });
+    /* Remove leftover .felix-brand-overlay elements */
+    document.querySelectorAll('.felix-brand-overlay').forEach(function(el) {
+      el.parentNode && el.parentNode.removeChild(el);
+    });
+  }
+
+  /* Step 2: Apply matte black + logo decal on tanker images */
+  function applyTankers() {
+    document.querySelectorAll('img').forEach(function(img) {
+      /* Skip if already processed */
+      if (img.getAttribute('data-tanker') === 'yes') return;
+      if (img.classList.contains('tanker-decal')) return;
+
+      var src = (img.getAttribute('src') || '').toLowerCase();
+      var isTanker = TANKER_SRCS.some(function(k) { return src.indexOf(k) !== -1; });
+      if (!isTanker) return;
+
+      /* Mark for CSS matte filter */
+      img.setAttribute('data-tanker', 'yes');
+
+      var parent = img.parentElement;
+      if (!parent) return;
+
+      /* Wrap in .tanker-wrap if not already wrapped */
+      if (!parent.classList || !parent.classList.contains('tanker-wrap')) {
+        var wrap = document.createElement('div');
+        wrap.className = 'tanker-wrap';
+
+        /* Preserve absolute positioning if parent is absolute */
+        var pStyle = getComputedStyle(parent);
+        if (pStyle.position === 'absolute' || pStyle.position === 'fixed') {
+          wrap.style.cssText = 'position:absolute;inset:0;';
         }
+
+        parent.insertBefore(wrap, img);
+        wrap.appendChild(img);
+        parent = wrap; /* parent is now the wrap */
+      }
+
+      /* Add FELIX logo as a decal img on the tank body */
+      if (!parent.querySelector('.tanker-decal')) {
+        var decal = document.createElement('img');
+        decal.src       = LOGO_SRC;
+        decal.alt       = 'Felix Petroleum';
+        decal.className = 'tanker-decal';
+        decal.setAttribute('loading', 'lazy');
+        decal.setAttribute('aria-hidden', 'true');
+        parent.appendChild(decal);
       }
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      cleanStale();
-      runOnAll();
-    });
-  } else {
-    cleanStale();
-    runOnAll();
+  function run() {
+    cleanOldWraps();
+    applyTankers();
   }
-  window.addEventListener('load', function() {
-    cleanStale();
-    runOnAll();
-  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run);
+  } else {
+    run();
+  }
+  window.addEventListener('load', run);
 })();
 </script>
 </body>
