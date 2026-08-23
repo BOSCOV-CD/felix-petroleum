@@ -1447,9 +1447,16 @@ function toggleAI() {
 </script>
 
 <!-- ══════════════════════════════════════
-     MATTE BLACK TANKS + FELIX LOGO — v10
+     MATTE BLACK TANKS + FELIX LOGO — v11
+     FIXED: only exact truck/tank srcs targeted
 ══════════════════════════════════════ -->
 <style>
+/* Only images explicitly flagged with data-brand="matte" get the filter */
+img[data-brand="matte"] {
+  filter: brightness(0.2) grayscale(100%) contrast(1.1) !important;
+}
+
+/* Wrapper for branded images */
 .felix-branded-wrap {
   position: relative;
   display: block;
@@ -1459,13 +1466,14 @@ function toggleAI() {
   width: 100%;
   height: 100%;
 }
-.felix-branded-wrap > img {
-  filter: brightness(0.2) grayscale(100%) contrast(1.1) !important;
+.felix-branded-wrap > img[data-brand="matte"] {
   display: block !important;
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
 }
+
+/* FELIX logo overlay */
 .felix-brand-overlay {
   position: absolute;
   top: 50%;
@@ -1503,54 +1511,111 @@ function toggleAI() {
   color: #FFC107;
   white-space: nowrap;
 }
+
+/* Kill any stale .felix-branded-wrap filters on non-matte images */
+.felix-branded-wrap > img:not([data-brand="matte"]) {
+  filter: none !important;
+}
 </style>
 
 <script>
+/* ══════════════════════════════════════
+   MATTE BLACK + FELIX LOGO OVERLAY v11
+   SAFE: only exact src paths get treated
+══════════════════════════════════════ */
 (function injectFelixBranding() {
-  var KEYWORDS = [
-    'truck','tanker','fleet','haulage',
-    'depot','tank','storage','loading','discharge',
-    'aviation','fueldepot','ops-fuel','ops-aviation',
-    'ops-discharge','ops-helmet','diff-tank','diff-loading',
-    'storage-tanks-new','truck-black','truck-fleet'
+  /* EXACT src substrings that should go matte black with logo overlay.
+     Must NOT include: felix-pic, felix-pic-2, felix-pic-3, depot-rivers,
+     og-image, favicon, logo-brand, logo-mark, cover, hero, background images */
+  var MATTE_SRCS = [
+    'truck-black',
+    'truck-fleet',
+    'storage-tanks-new',
+    'depot-tanks',
+    'diff-tanks',
+    'diff-loading',
+    'diff-aviation',
+    'diff-discharge',
+    'ops-fueldepot',
+    'ops-aviation',
+    'ops-discharge'
   ];
+
   var LOGO_SRC = 'images/felix-logo-brand.jpg';
 
-  function isTankOrTruck(img) {
+  function shouldMatte(img) {
     var src = (img.getAttribute('src') || '').toLowerCase();
-    var alt = (img.getAttribute('alt') || '').toLowerCase();
-    return KEYWORDS.some(function(k){ return src.indexOf(k) !== -1 || alt.indexOf(k) !== -1; });
+    /* Skip the logo itself, SVGs, preloader, nav, portraits */
+    if (img.classList.contains('fbo-logo')) return false;
+    if (img.closest('.preloader-dragon, .brand-dragon, .ai-avatar, .about-img-main, .about-img-accent, .felix-gold-card, .fgc-dragon, .hmodal-img, .lightbox-img')) return false;
+    return MATTE_SRCS.some(function(k) { return src.indexOf(k) !== -1; });
   }
 
   function wrapImg(img) {
     if (img.closest && img.closest('.felix-branded-wrap')) return;
-    if (img.classList.contains('fbo-logo')) return;
-    if (!isTankOrTruck(img)) return;
+    if (!shouldMatte(img)) return;
+
+    /* Mark image for CSS filter */
+    img.setAttribute('data-brand', 'matte');
+
     var parent = img.parentElement;
     if (!parent) return;
+
+    /* Don't double-wrap */
+    if (parent.classList && parent.classList.contains('felix-branded-wrap')) return;
+
     var wrap = document.createElement('div');
     wrap.className = 'felix-branded-wrap';
+
     var pStyle = getComputedStyle(parent);
     if (pStyle.position === 'absolute' || pStyle.position === 'fixed') {
-      wrap.style.position = 'absolute';
-      wrap.style.inset = '0';
+      wrap.style.cssText = 'position:absolute;inset:0;';
     }
+
     parent.insertBefore(wrap, img);
     wrap.appendChild(img);
+
+    /* Inject FELIX logo overlay */
     var overlay = document.createElement('div');
     overlay.className = 'felix-brand-overlay';
-    overlay.innerHTML = '<img class="fbo-logo" src="' + LOGO_SRC + '" alt="Felix Petroleum" loading="lazy"><span class="fbo-tag">FELIX PETROLEUM</span>';
+    overlay.innerHTML =
+      '<img class="fbo-logo" src="' + LOGO_SRC + '" alt="Felix Petroleum logo" loading="lazy">' +
+      '<span class="fbo-tag">FELIX PETROLEUM</span>';
     wrap.appendChild(overlay);
   }
 
-  function runOnAll() { document.querySelectorAll('img').forEach(wrapImg); }
+  function runOnAll() {
+    document.querySelectorAll('img:not(.fbo-logo)').forEach(wrapImg);
+  }
+
+  /* Also remove any stale felix-branded-wrap on images that shouldn't have it */
+  function cleanStale() {
+    document.querySelectorAll('.felix-branded-wrap').forEach(function(wrap) {
+      var img = wrap.querySelector('img');
+      if (!img || !img.getAttribute('data-brand')) {
+        /* Unwrap: move img back to parent, remove wrap */
+        var parent = wrap.parentElement;
+        if (parent) {
+          while (wrap.firstChild) parent.insertBefore(wrap.firstChild, wrap);
+          parent.removeChild(wrap);
+        }
+      }
+    });
+  }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', runOnAll);
+    document.addEventListener('DOMContentLoaded', function() {
+      cleanStale();
+      runOnAll();
+    });
   } else {
+    cleanStale();
     runOnAll();
   }
-  window.addEventListener('load', runOnAll);
+  window.addEventListener('load', function() {
+    cleanStale();
+    runOnAll();
+  });
 })();
 </script>
 </body>
